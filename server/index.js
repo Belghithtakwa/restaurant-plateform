@@ -4,8 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-// connect Data base
+// connect Database
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
@@ -18,14 +17,16 @@ mongoose.connection.on("error", (err) => {
   console.log("DB Connection failed with - ", err);
 });
 // import routes
-
+const clientAuth = require("./routes/clientAuth.routes");
+const managerAuth = require("./routes/managerAuth.routes");
 // middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 // routes middlewares
-
-const port =process.env.PORT || 8000;
+app.use("/api/auth", clientAuth);
+app.use("/api/auth/manager", managerAuth);
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log(`server is running at port ${port}`);

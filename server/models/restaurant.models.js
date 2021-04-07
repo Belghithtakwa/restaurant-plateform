@@ -21,8 +21,9 @@ const RestaurantSchema = new Schema(
     },
     description: { type: String },
     owners: [{ type: mongoose.Schema.Types.ObjectId, ref: "Manager" }],
-    canDeliver: { type: Boolean, required: true },
+    canDeliver: { type: Boolean, default: true },
     menus: [{ type: mongoose.Schema.Types.ObjectId, ref: "Menu" }],
+    restaurantAddress: {type: mongoose.Schema.Types.ObjectId, ref:"RestaurantAddress"}
   },
   { timestamps: true }
 );

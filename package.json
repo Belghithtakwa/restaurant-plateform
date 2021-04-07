@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client && npm start" ,
+    "client": "cd client && npm start",
     "server": "cd server && npm start",
     "dev": "concurrently -n 'server,client' -c 'red,green' \"npm run server\" \"npm run client\""
   },
@@ -18,5 +18,11 @@
     "url": "https://github.com/Belghithtakwa/restaurant-plateform/issues"
   },
   "homepage": "https://github.com/Belghithtakwa/restaurant-plateform#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "dependencies": {
+    "git-ignore": "0.0.2"
+  }
 }
