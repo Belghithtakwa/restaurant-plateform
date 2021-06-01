@@ -30,25 +30,33 @@ function App() {
   }, []);
   return (
     <Provider store={store}>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home}></Route>
-          <Route exact path="/client/login" component={ClientLogin}></Route>
-          <Route
-            exact
-            path="/client/register"
-            component={ClientRegister}></Route>
-          <Route exact path="/manager/login" component={ManagerLogin}></Route>
-          <Route
-            exact
-            path="/manager/register"
-            component={ManagerRegister}></Route>
-          <ManagerRoutes path="/manager/dashboard" component={ManagerDashboard} />
-        </Switch>
-        <Footer />
-      </Router>
-    </Provider>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Home}></Route>
+        <Route exact path="/client/login" component={ClientLogin}></Route>
+        <Route
+          exact
+          path="/client/register"
+          component={ClientRegister}></Route>
+        <Route exact path="/manager/login" component={ManagerLogin}></Route>
+        <Route
+          exact
+          path="/manager/register"
+          component={ManagerRegister}></Route>
+        <ManagerRoutes
+          path="/manager/dashboard"
+          component={ManagerDashboard}
+        />
+        <Route
+          exact
+          path="/menu/:restaurantId/:menuId"
+          component={StoreFront}
+        />
+      </Switch>
+      <Footer />
+    </Router>
+  </Provider>
   );
 }
 
