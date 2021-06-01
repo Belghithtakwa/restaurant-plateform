@@ -8,28 +8,20 @@ const getCategories = async (req, res) => {
     res.status(500).json(error);
   }
 };
-const getCategoryBySlug = async (req, res) => {
-  const slug = req.params.categoryslug;
-  try {
-    const category = await Category.findOne({ categorySlug: slug });
-    return res.status(200).json({ category: category });
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
 const getCategoryById = async (req, res) => {
-  const id = req.params.categoryId;
+  const category = req.category;
   try {
-    const category = await Category.findById(id);
     return res.status(200).json({ category: category });
   } catch (error) {
     return res.status(500).json(error);
   }
 };
 const createCategory = async (req, res) => {
+  const restaurant = req.restaurant;
   const newCategory = new Category({
     categoryName: req.body.categoryName,
     description: req.body.description,
+    restaurant: restaurant._id,
   });
   try {
     const savedCategory = await newCategory.save();
@@ -39,9 +31,9 @@ const createCategory = async (req, res) => {
   }
 };
 const deleteCategory = async (req, res) => {
-  const id = req.params.categoryId;
+  const category = req.category;
   try {
-    const deletedCategory = await Category.findByIdAndDelete(id);
+    const deletedCategory = await Category.findByIdAndDelete(category._id);
     return res.status(200).json(`${deletedCategory._id} is deleted succefully`);
   } catch (err) {
     return res.status(500).json(err);
@@ -49,13 +41,17 @@ const deleteCategory = async (req, res) => {
 };
 
 const updateCategory = async (req, res) => {
-  const id = req.params.categoryId;
+  const category = req.category;
   const { ...dataToUpdate } = req.body;
 
   try {
-    const updatedCategory = await Category.findByIdAndUpdate(id, dataToUpdate, {
-      new: true,
-    });
+    const updatedCategory = await Category.findByIdAndUpdate(
+      category._id,
+      dataToUpdate,
+      {
+        new: true,
+      }
+    );
     if (dataToUpdate.categoryName) {
       await updatedCategory.slugify();
       await updatedCategory.save();
@@ -69,5 +65,5 @@ const updateCategory = async (req, res) => {
 module.exports.updateCategory = updateCategory;
 module.exports.createCategory = createCategory;
 module.exports.deleteCategory = deleteCategory;
-module.exports.getCategoryBySlug = getCategoryBySlug;
+module.exports.getCategoryById = getCategoryById;
 module.exports.getCategories = getCategories;

@@ -11,6 +11,8 @@ const OrderSchema = new Schema(
         totalPrice: { type: Number },
       },
     ],
+    client : {type : mongoose.Schema.Types.ObjectId, ref:"Client"}, //TODO: need to solve
+    restaurant: {type: mongoose.Schema.Types.ObjectId, ref:"Restaurant"},
     orderType: { type: String }, // delivery, in_place
     state: { type: String, default: "waiting_confirmation" }, //pending, waiting_confirmation, canceled, delivered,
     deliveryAddress: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
@@ -20,4 +22,4 @@ const OrderSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Order", OrderSchema);
+module.exports = mongoose.models.Order || mongoose.model("Order", OrderSchema);

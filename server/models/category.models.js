@@ -13,6 +13,7 @@ const CategorySchema = new Schema(
       index: true,
     },
     description: { type: String, maxlength: 512 },
+    restaurant : {type: mongoose.Schema.Types.ObjectId, ref:"Restaurant"},
    
   },
   { timestamps: true }

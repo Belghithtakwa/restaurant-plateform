@@ -17,15 +17,32 @@ mongoose.connection.on("error", (err) => {
   console.log("DB Connection failed with - ", err);
 });
 // import routes
-const clientAuth = require("./routes/clientAuth.routes");
-const managerAuth = require("./routes/managerAuth.routes");
+const clientAuthRoutes = require("./routes/clientAuth.routes");
+const managerAuthRoutes = require("./routes/managerAuth.routes");
+const authCheckRoutes = require("./routes/authCheck.routes");
+const feedbackRoutes = require("./routes/feedback.routes");
+const menuRoutes = require("./routes/menu.routes");
+const restaurantRoutes = require("./routes/restaurant.routes");
+const productRoutes = require("./routes/product.routes");
+const categoryRoutes = require("./routes/category.routes");
+const addressRoutes = require("./routes/address.routes");
+const orderRoutes = require("./routes/order.routes");
 // middlewares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 // routes middlewares
-app.use("/api/auth", clientAuth);
-app.use("/api/auth/manager", managerAuth);
+app.use("/api/auth", clientAuthRoutes);
+app.use("/api/auth", authCheckRoutes);
+app.use("/api/auth/manager", managerAuthRoutes);
+app.use("/api/feedbacks", feedbackRoutes);
+app.use("/api/menus", menuRoutes);
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/addresses", addressRoutes);
+app.use("/api/order", orderRoutes);
+
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {

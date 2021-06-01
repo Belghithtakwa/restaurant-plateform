@@ -11,16 +11,20 @@ const MenuSchema = new Schema({
     lowercase: true,
     index: true,
   },
+  menuURL: { type: String },
   description: { type: String, maxlength: 512 },
   isActive: { type: Boolean, default: false },
   categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
 });
 MenuSchema.plugin(uniqueValidator, { message: "Menu not unique" });
 
 MenuSchema.pre("validate", function (next) {
   if (!this.menuSlug) {
     this.slugify();
+  }
+  if (!this.menuURL) {
+    this.Linkify();
   }
   next();
 });
@@ -31,4 +35,7 @@ MenuSchema.methods.slugify = function () {
     "-" +
     ((Math.random() * Math.pow(36, 6)) | 0).toString(36);
 };
-module.exports = mongoose.model("Product", MenuSchema);
+MenuSchema.methods.Linkify = function () {
+  this.menuURL = `/${this.restaurant}/${this._id}`;
+};
+module.exports = mongoose.model("Menu", MenuSchema);

@@ -3,16 +3,9 @@ const Client = require("../models/client.models");
 const Address = require("../models/address.models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const verifyToken = require("../middlewares/verifyToken");
+
 const isEmail = require("validator/lib/isEmail");
-router.get("/authcheck", verifyToken, async (req, res) => {
-  try {
-    const client = await Client.findById(req.verifiedUser._id);
-    return res.status(200).json(client);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
+
 router.post("/register", async (req, res) => {
   const client = await Client.findOne({ email: req.body.email });
   if (client) return res.statusCode(422).json("email already exist");
@@ -42,7 +35,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  let client = null
+  let client = null;
   if (isEmail(req.body.loginInfo)) {
     client = await Client.findOne({ email: req.body.loginInfo });
     if (!client) return res.status(400).json("email/password wrong");
@@ -58,6 +51,7 @@ router.post("/login", async (req, res) => {
       _id: client._id,
       isActive: client.isActive,
       isManager: client.isManager,
+      isAdmin: client.idAdmin,
     },
     process.env.SECRET_TOKEN,
     { expiresIn: "2 days" }

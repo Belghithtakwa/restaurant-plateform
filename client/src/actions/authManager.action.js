@@ -7,7 +7,7 @@ import {
   USER_LOGOUT,
   USER_REGISTER_SUCCESS,
 } from "./types";
-
+import setAuthToken from "../utils/setAuthToken";
 export const registerManager = (data) => async (dispatch) => {
   const config = {
     headers: {
@@ -34,8 +34,8 @@ export const registerManager = (data) => async (dispatch) => {
 
 export const loginManager = (data) => async (dispatch) => {
   dispatch({
-    type: USER_LOADING
-  })
+    type: USER_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -47,6 +47,7 @@ export const loginManager = (data) => async (dispatch) => {
       data,
       config
     );
+    setAuthToken(res.data.token);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: res.data,

@@ -18,6 +18,7 @@ const ManagerSchema = new Schema(
     password: { type: String, required: true, maxlength: 1024 },
     isManager: { type: Boolean, default: true },
     isActive: { type: Boolean, default: false },
+    isAdmin: {type: Boolean, default: false}
   },
   { timestamps: true }
 );

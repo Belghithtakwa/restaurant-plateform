@@ -12,9 +12,11 @@ const ProductSchema = new Schema(
       lowercase: true,
       index: true,
     },
+    price: { type: Number },
     description: { type: String, maxlength: 512 },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     image: { type: String },
+    restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurant" },
   },
   { timestamps: true }
 );
