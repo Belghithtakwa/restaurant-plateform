@@ -6,11 +6,13 @@ const isManager = require("../middlewares/isManager");
 const isActive = require("../middlewares/isActive");
 const verifyToken = require("../middlewares/verifyToken");
 const isAdmin = require("../middlewares/isAdmin");
-const isOwnedRestaurant = require("../middlewares/isOwnedRestaurant");
 const isOwnedOrder = require("../middlewares/isOwnedOrder");
 router.param("order", async (req, res, next, id) => {
   try {
-    const order = await Order.findById(id);
+    const order = await Order.findById(id).populate({
+      path: "items.product",
+      select: "productName",
+    });
     if (!order) return res.status(404).json("order not found");
     req.order = order;
     return next();
@@ -28,79 +30,72 @@ router.param("restaurant", async (req, res, next, id) => {
     return res.status(500).json(err);
   }
 });
-router.param("order", async (req, res, next, id) => {
-  try {
-    const order = await Order.findById(id);
-    if (!order) return res.status(404).json("order not found");
-    req.order = order;
-    return next();
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
 //admin routes
-router.get("/admin/", verifyToken, isActive, isAdmin, orderControllers.getOrders);
 router.get(
-  "/admin/:order",
+  "/admin/",
   verifyToken,
   isActive,
   isAdmin,
-  orderControllers.getOrderById
-);
-router.delete(
-  "/admin/:order",
-  verifyToken,
-  isActive,
-  isAdmin,
-  orderControllers.deleteOrder
-);
-//manager routes
-router.get(
-  "/:restaurant",
-  verifyToken,
-  isActive,
-  isManager,
-  isOwnedRestaurant,
   orderControllers.getOrders
 );
 router.get(
-  "/:restaurant/:order",
+  "/admin/:order",
   verifyToken,
   isActive,
-  isManager,
-  isOwnedRestaurant,
+  isAdmin,
   orderControllers.getOrderById
 );
-router.post(
-  "/:restaurant",
-  verifyToken,
-  isActive,
-  orderControllers.createOrder
-);
 router.delete(
-  "/:restaurant",
+  "/admin/:order",
   verifyToken,
   isActive,
-  isManager,
-  isOwnedRestaurant,
+  isAdmin,
   orderControllers.deleteOrder
 );
 
 router.get("/", verifyToken, isActive, orderControllers.getOwnedOrders);
 router.get(
-  "/:order",
+  "/client/:order",
   verifyToken,
   isActive,
   isOwnedOrder,
   orderControllers.getOwnedOrder
 );
+router.get("/client/:orderCode/bycode", orderControllers.getOwnedOrderByCode);
 //Client routes
-router.post("/client", verifyToken, isActive, orderControllers.createOrder);
+router.post(
+  "/:restaurant/client",
+  verifyToken,
+  isActive,
+  orderControllers.createOrder
+);
 router.put(
-  "/client/:order",
+  "/:restaurant/client/:order",
   verifyToken,
   isActive,
   isOwnedOrder,
   orderControllers.addToClientOrder
 );
+router.put(
+  "/client/:order/checkout",
+  verifyToken,
+  isActive,
+  isOwnedOrder,
+  orderControllers.orderCheckout
+);
+router.get(
+  "/:order/confirm",
+  verifyToken,
+  isActive,
+  isManager,
+  orderControllers.confirmOrder
+);
+router.get(
+  "/:order/cancel",
+  verifyToken,
+  isActive,
+  isManager,
+  orderControllers.cancelOrder
+);
+router.get("/:order/client/pay", orderControllers.payOrderWithStripe);
 module.exports = router;

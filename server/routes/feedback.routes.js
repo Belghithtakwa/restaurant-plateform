@@ -20,6 +20,7 @@ router.get('/admin/', feedbackControllers.getFeedbacks)
 router.put('/admin/:feedback',verifyToken, isActive, isAdmin, feedbackControllers.updateFeedback)
 router.delete('/admin/:feedback', verifyToken, isActive, isAdmin, feedbackControllers.deleteFeedback)
 
+
 router.get('/me',verifyToken, isActive, feedbackControllers.getOwnedFeedbacks)
 router.post('/',verifyToken, feedbackControllers.createFeedback)
 router.put('/:feedback',verifyToken, isActive, isOwnedFeeBack, feedbackControllers.updateFeedback)

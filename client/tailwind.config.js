@@ -5,6 +5,17 @@ module.exports = {
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      colors: {
+        primary: "#4fd165",
+        "primary-tint": "#46B859",
+        "primary-shade": "#54DE6B",
+        secondary: "#03a9f5",
+        danger: "#ff7251",
+        warning: "#ffcb2a",
+        success: "#4fd165",
+      },
+    },
     screens: {
       sm: '640px',
       md: '768px',

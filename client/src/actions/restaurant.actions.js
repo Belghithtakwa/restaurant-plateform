@@ -3,9 +3,7 @@ import {
   OWNED_RESTAURANT_ERROR,
   GET_OWNED_RESTAURANT,
   GET_OWNED_RESTAURANTS,
-  CREATE_OWNED_RESTAURANT,
-  DELETE_OWNED_RESTAURANT,
-  UPDATE_OWNED_RESTAURANT,
+
 } from "./types";
 
 export const getOwnedRestaurants = () => async (dispatch) => {

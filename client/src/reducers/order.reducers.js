@@ -6,6 +6,11 @@ import {
   DELETE_OWNED_ORDER,
   UPDATE_OWNED_ORDER,
   OWNED_ORDER_ERROR,
+  CHECKOUT_OWNED_ORDER,
+  GET_MANAGER_ORDER,
+  GET_MANAGER_ORDERS,
+  CONFIRM_ORDER,
+  CANCEL_ORDER,
 } from "../actions/types";
 
 const initialState = {
@@ -42,6 +47,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
+        order: null,
         error: payload,
       };
     case UPDATE_OWNED_ORDER:
@@ -51,16 +57,48 @@ export default function (state = initialState, action) {
         order: payload,
       };
     case CREATE_CLIENT_ORDER:
-      localStorage.setItem("orderId", payload.order._id);
+      localStorage.setItem("orderId", payload._id);
       return {
         ...state,
-        order: payload.order,
+        order: payload,
         loading: false,
       };
     case ADD_TO_CLIENT_ORDER:
+      localStorage.setItem("orderId", payload._id);
       return {
         ...state,
-        order: payload.order,
+        order: payload,
+        loading: false,
+      };
+    case CHECKOUT_OWNED_ORDER:
+      localStorage.removeItem("orderId");
+      return {
+        ...state,
+        order: payload,
+        loading: false,
+      };
+    case GET_MANAGER_ORDER:
+      return {
+        ...state,
+        order: payload,
+        loading: false,
+      };
+    case GET_MANAGER_ORDERS:
+      return {
+        ...state,
+        orders: payload,
+        loading: false,
+      };
+    case CONFIRM_ORDER:
+      return {
+        ...state,
+        orders: payload,
+        loading: false,
+      };
+    case CANCEL_ORDER:
+      return {
+        ...state,
+        orders: payload,
         loading: false,
       };
     default:

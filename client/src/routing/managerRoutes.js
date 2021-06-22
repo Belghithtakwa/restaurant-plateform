@@ -1,6 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Spinner from "../app/utils/Spinner";
+import Spinner from "../app/utils/spinner";
 import PropTypes from "prop-types";
 
 const ManagerRoutes = (
@@ -30,7 +30,7 @@ ManagerRoutes.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  auth: state.authManager,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(ManagerRoutes);

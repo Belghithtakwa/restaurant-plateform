@@ -11,7 +11,8 @@ const OrderSchema = new Schema(
         totalPrice: { type: Number },
       },
     ],
-    client : {type : mongoose.Schema.Types.ObjectId, ref:"Client"}, //TODO: need to solve
+    client : {type : mongoose.Schema.Types.ObjectId, refPath:"onModel"}, 
+    onModel: {type: String, required: true, enum: ["Client","Manager"]},
     restaurant: {type: mongoose.Schema.Types.ObjectId, ref:"Restaurant"},
     orderType: { type: String }, // delivery, in_place
     state: { type: String, default: "waiting_confirmation" }, //pending, waiting_confirmation, canceled, delivered,

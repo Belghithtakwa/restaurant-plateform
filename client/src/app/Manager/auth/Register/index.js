@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerManager } from "../../../../actions/authManager.action";
-const ManagerRegister = ({ registerManager }) => {
+import {registerManager} from "../../../../actions/authManager.action"
+import Spinner from "../../../utils/spinner"
+const ManagerRegister = ({
+  registerManager,
+  auth: { isAuthenticated, loading },
+}) => {
   const [registerForm, setRegisterForm] = useState({
     streetName: "",
     restaurantName: "",
@@ -15,15 +19,21 @@ const ManagerRegister = ({ registerManager }) => {
     phoneNumber: "",
     password: "",
   });
+  let history = useHistory();
   const onInputChange = (e) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
-    console.log(registerForm);
   };
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
-    registerManager(registerForm);
+    await registerManager(registerForm);
+    history.push("/manager/login");
   };
-  return (
+  if (isAuthenticated) {
+    history.push("/manager/dashboard/home");
+  }
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="text-gray-600 body-font relative">
       <div className="container px-5 py-24 mx-auto flex">
         <div className="bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
@@ -34,7 +44,7 @@ const ManagerRegister = ({ registerManager }) => {
             <div className="relative mb-4 flex w-full gap-4">
               <div className="w-1/2">
                 <label
-                  for="firstName"
+                  htmlFor="firstName"
                   className="leading-7 text-sm text-gray-600">
                   First Name
                 </label>
@@ -42,14 +52,14 @@ const ManagerRegister = ({ registerManager }) => {
                   type="text"
                   id="firstName"
                   name="firstName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/2">
                 <label
-                  for="lastName"
+                  htmlFor="lastName"
                   className="leading-7 text-sm text-gray-600">
                   Last Name
                 </label>
@@ -57,21 +67,23 @@ const ManagerRegister = ({ registerManager }) => {
                   type="text"
                   id="lastName"
                   name="lastName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
             <div className="relative mb-4">
-              <label for="email" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="email"
+                className="leading-7 text-sm text-gray-600">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 required
                 onChange={(e) => onInputChange(e)}
               />
@@ -79,7 +91,7 @@ const ManagerRegister = ({ registerManager }) => {
             <div className="relative mb-4 flex w-full gap-4">
               <div className="w-1/3">
                 <label
-                  for="streetName"
+                  htmlFor="streetName"
                   className="leading-7 text-sm text-gray-600">
                   Street Name
                 </label>
@@ -87,28 +99,28 @@ const ManagerRegister = ({ registerManager }) => {
                   type="text"
                   id="streetName"
                   name="streetName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/3">
                 <label
-                  for="blockNumber"
+                  htmlFor="blockNumber"
                   className="leading-7 text-sm text-gray-600">
                   Block Number
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="blockNumber"
                   name="blockNumber"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/3">
                 <label
-                  for="codeZip"
+                  htmlFor="codeZip"
                   className="leading-7 text-sm text-gray-600">
                   Zip Code
                 </label>
@@ -116,7 +128,7 @@ const ManagerRegister = ({ registerManager }) => {
                   type="number"
                   id="codeZip"
                   name="codeZip"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
@@ -124,7 +136,7 @@ const ManagerRegister = ({ registerManager }) => {
             </div>
             <div className="relative mb-4">
               <label
-                for="phoneNumber"
+                htmlFor="phoneNumber"
                 className="leading-7 text-sm text-gray-600">
                 Phone Number
               </label>
@@ -132,27 +144,29 @@ const ManagerRegister = ({ registerManager }) => {
                 type="text"
                 id="phoneNumber"
                 name="phoneNumber"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                required
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-            <div className="relative mb-4">
-              <label for="password" className="leading-7 text-sm text-gray-600">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 required
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <div className="relative mb-4">
               <label
-                for="restaurantName"
+                htmlFor="password"
+                className="leading-7 text-sm text-gray-600">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                required
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="relative mb-4">
+              <label
+                htmlFor="restaurantName"
                 className="leading-7 text-sm text-gray-600">
                 Restaurant Name
               </label>
@@ -160,14 +174,14 @@ const ManagerRegister = ({ registerManager }) => {
                 type="text"
                 id="restaurantName"
                 name="restaurantName"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 required
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <button
               type="submit"
-              className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
               Register
             </button>
           </form>
@@ -184,10 +198,13 @@ const ManagerRegister = ({ registerManager }) => {
 };
 
 ManagerRegister.propTypes = {
+  auth: PropTypes.object.isRequired,
   registerManager: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 const mapDispatchToProps = {
   registerManager,

@@ -23,6 +23,7 @@
     "concurrently": "^6.0.0"
   },
   "dependencies": {
-    "git-ignore": "0.0.2"
+    "git-ignore": "0.0.2",
+    "redux-devtools-extension": "^2.13.9"
   }
 }

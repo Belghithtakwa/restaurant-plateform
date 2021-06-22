@@ -6,12 +6,27 @@ const isActive = require("../middlewares/isActive");
 const verifyToken = require("../middlewares/verifyToken");
 const isAdmin = require("../middlewares/isAdmin");
 const isOwnedRestaurant = require("../middlewares/isOwnedRestaurant");
-
+const orderControllers = require("../controllers/order.controllers");
+const dashboardControllers = require("../controllers/dashboard.controllers");
+const Order = require("../models/order.models");
 router.param("restaurant", async (req, res, next, id) => {
   try {
     const restaurant = await Restaurant.findById(id);
-    if (!restaurant) return res.status(404).json("not found");
+    if (!restaurant) return res.status(404).json("restaurant not found");
     req.restaurant = restaurant;
+    next();
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+router.param("order", async (req, res, next, id) => {
+  try {
+    const order = await Order.findById(id).populate({
+      path: "items.product",
+      select: "productName",
+    });
+    if (!order) return res.status(404).json("order not found");
+    req.order = order;
     next();
   } catch (err) {
     return res.status(500).json(err);
@@ -92,5 +107,53 @@ router.post(
   isActive,
   isManager,
   restaurantControllers.createOwnedRestaurant
+);
+// order
+//manager routes
+router.get(
+  "/:restaurant/orders",
+  verifyToken,
+  isActive,
+  isManager,
+  isOwnedRestaurant,
+  orderControllers.getOrders
+);
+router.get(
+  "/:restaurant/orders/:order",
+  verifyToken,
+  isActive,
+  isManager,
+  isOwnedRestaurant,
+  orderControllers.getOrderById
+);
+router.post(
+  "/:restaurant/orders",
+  verifyToken,
+  isActive,
+  orderControllers.createOrder
+);
+router.delete(
+  "/:restaurant/orders/:order",
+  verifyToken,
+  isActive,
+  isManager,
+  isOwnedRestaurant,
+  orderControllers.deleteOrder
+);
+router.get(
+  "/:restaurant/count_order",
+  verifyToken,
+  isActive,
+  isManager,
+  isOwnedRestaurant,
+  dashboardControllers.getOrderNumberByRestaurant
+);
+router.get(
+  "/:restaurant/count_confirmed_order",
+  verifyToken,
+  isActive,
+  isManager,
+  isOwnedRestaurant,
+  dashboardControllers.orderConfirmationAverageNumberByRestaurant
 );
 module.exports = router;

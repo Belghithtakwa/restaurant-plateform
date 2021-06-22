@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { loginClient } from "../../../../actions/authClient.actions";
 import { connect } from "react-redux";
-
-const ClientLogin = ({ loginClient }) => {
+import Spinner from "../../../utils/spinner"
+const ClientLogin = ({ loginClient, auth: { isAuthenticated, loading } }) => {
+  let history = useHistory();
   const [loginForm, setLoginForm] = useState({
     loginInfo: "",
     password: "",
@@ -16,7 +17,12 @@ const ClientLogin = ({ loginClient }) => {
     e.preventDefault();
     loginClient(loginForm);
   };
-  return (
+  if (isAuthenticated) {
+    history.push("/client/dashboard/home");
+  }
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="text-gray-600 body-font relative">
       <div className="container px-5 py-24 mx-auto flex">
         <div className="bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
@@ -26,7 +32,7 @@ const ClientLogin = ({ loginClient }) => {
           <form onSubmit={(e) => onSubmitForm(e)}>
             <div className="relative mb-4">
               <label
-                for="loginInfo"
+                htmlFor="loginInfo"
                 className="leading-7 text-sm text-gray-600">
                 Email/PhoneNumber
               </label>
@@ -36,11 +42,13 @@ const ClientLogin = ({ loginClient }) => {
                 type="text"
                 id="loginInfo"
                 name="loginInfo"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
             <div className="relative mb-4">
-              <label for="password" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="password"
+                className="leading-7 text-sm text-gray-600">
                 Password
               </label>
               <input
@@ -49,10 +57,10 @@ const ClientLogin = ({ loginClient }) => {
                 type="password"
                 id="password"
                 name="password"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
-            <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            <button className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
               Login
             </button>
             <Link
@@ -69,8 +77,11 @@ const ClientLogin = ({ loginClient }) => {
 
 ClientLogin.propTypes = {
   loginClient: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 const mapDispatchToProps = {
   loginClient,

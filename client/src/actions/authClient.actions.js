@@ -4,9 +4,14 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
   USER_REGISTER_SUCCESS,
+  USER_LOGOUT,
+  USER_LOADING,
 } from "./types";
 
 export const registerClient = (data) => async (dispatch) => {
+  dispatch({
+    type: USER_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +20,7 @@ export const registerClient = (data) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/auth/register",
+      "http://localhost:8000/api/auth/client/register",
       data,
       config
     );
@@ -31,6 +36,9 @@ export const registerClient = (data) => async (dispatch) => {
 };
 
 export const loginClient = (data) => async (dispatch) => {
+  dispatch({
+    type: USER_LOADING,
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +46,7 @@ export const loginClient = (data) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/auth/login",
+      "http://localhost:8000/api/auth/client/login",
       data,
       config
     );
@@ -52,4 +60,13 @@ export const loginClient = (data) => async (dispatch) => {
       payload: err,
     });
   }
+};
+
+export const logoutClient = () => (dispatch) => {
+  dispatch({
+    type: USER_LOADING,
+  });
+  dispatch({
+    type: USER_LOGOUT,
+  });
 };

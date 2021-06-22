@@ -1,26 +1,41 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { APP_TITLE } from "../../../constants/app";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutManager } from "../../../actions/authManager.actions";
+import {logoutManager} from "../../../actions/authManager.action";
+import { logoutClient } from "../../../actions/authClient.actions";
+import { useHistory } from "react-router-dom";
 
-const Navbar = ({ auth, logoutManager }) => {
+const Navbar = ({ auth, order, logoutManager }) => {
   const notShowInUrls = [
-    "/manager/login",
-    "/manager/register",
     "/manager/dashboard",
-    "/menu"
+    "/client/dashboard",
+    "/menu",
+    "/order",
+    "/payment",
   ];
+  const [codeData, setcodeData] = useState("");
+  const onInputChange = (e) => {
+    setcodeData(e.target.value);
+  };
   const match = useRouteMatch(notShowInUrls);
-  const scrollToContactUs = (e) => {
+  let history = useHistory();
+  const scrollToContactUs = async (e) => {
     e.preventDefault();
+    await history.push("/");
     const element = document.getElementById("contact-us");
-    element.scrollIntoView({ behavior: "smooth", block:"center" });
+    element.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  const onCodeSubmit = async (e) => {
+    e.preventDefault();
+    history.push(`/orders/details/${codeData}`);
   };
   const publicLinks = (
     <Fragment>
-      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <Link
+        to="/"
+        className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -34,6 +49,24 @@ const Navbar = ({ auth, logoutManager }) => {
         </svg>
         <span className="ml-3 text-xl">{APP_TITLE}</span>
       </Link>
+      <form
+        onSubmit={(e) => onCodeSubmit(e)}
+        className="flex items-center justify-between gap-6">
+        <input
+          onChange={(e) => onInputChange(e)}
+          required
+          type="text"
+          id="orderCode"
+          name="orderCode"
+          className="bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          placeholder="Order Code"
+        />
+        <button
+          type="submit"
+          className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
+          Search
+        </button>
+      </form>
       <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
         <Link to="/" className=" font-semibold hover:text-primary mr-5">
           Home
@@ -59,10 +92,9 @@ const Navbar = ({ auth, logoutManager }) => {
       </Link>
     </Fragment>
   );
-  const clientLinks = <Fragment></Fragment>;
-  const managerLinks = (
+  const clientLinks = (
     <Fragment>
-      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -76,6 +108,24 @@ const Navbar = ({ auth, logoutManager }) => {
         </svg>
         <span className="ml-3 text-xl">{APP_TITLE}</span>
       </Link>
+      <form
+        onSubmit={(e) => onCodeSubmit(e)}
+        className="flex items-center justify-between gap-6">
+        <input
+          onChange={(e) => onInputChange(e)}
+          required
+          type="text"
+          id="orderCode"
+          name="orderCode"
+          className="bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          placeholder="Order Code"
+        />
+        <button
+          type="submit"
+          className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
+          Search
+        </button>
+      </form>
       <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
         <Link to="/" className=" font-semibold hover:text-primary mr-5">
           Home
@@ -83,7 +133,7 @@ const Navbar = ({ auth, logoutManager }) => {
         <Link to="/about" className=" font-semibold hover:text-primary mr-5">
           About
         </Link>
-        <Link to="/Pricing" className=" font-semibold hover:text-primary mr-5">
+        <Link to="/pricing" className=" font-semibold hover:text-primary mr-5">
           Pricing
         </Link>
         <button
@@ -95,11 +145,83 @@ const Navbar = ({ auth, logoutManager }) => {
         </button>
       </nav>
       <Link
-        to="/manager/dashboard"
+        to="/client/dashboard/home"
         className=" font-semibold hover:text-primary flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 gap-2">
         <div>Dashboard</div>
         <div className="text-primary text-xl">
-          <i class="fas fa-home"></i>
+          <i className="fas fa-home"></i>
+        </div>
+      </Link>
+      <button
+        onClick={(e) => {
+          logoutClient();
+        }}
+        className=" font-semibold hover:text-primary flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 gap-2">
+        <div>Logout</div>
+        <div className="text-primary text-xl">
+          <i className="fas fa-sign-out-alt"></i>
+        </div>
+      </button>
+    </Fragment>
+  );
+  const managerLinks = (
+    <Fragment>
+      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          className="w-10 h-10 text-white p-2 bg-primary rounded-full"
+          viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span className="ml-3 text-xl">{APP_TITLE}</span>
+      </Link>
+      <form
+        onSubmit={(e) => onCodeSubmit(e)}
+        className="flex items-center justify-between gap-6">
+        <input
+          onChange={(e) => onInputChange(e)}
+          required
+          type="text"
+          id="orderCode"
+          name="orderCode"
+          className="bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          placeholder="Order Code"
+        />
+        <button
+          type="submit"
+          className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
+          Search
+        </button>
+      </form>
+      <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        <Link to="/" className=" font-semibold hover:text-primary mr-5">
+          Home
+        </Link>
+        <Link to="/about" className=" font-semibold hover:text-primary mr-5">
+          About
+        </Link>
+        <Link to="/pricing" className=" font-semibold hover:text-primary mr-5">
+          Pricing
+        </Link>
+        <button
+          onClick={(e) => {
+            scrollToContactUs(e);
+          }}
+          className=" appearance-none focus:outline-none outline-none font-semibold hover:text-primary mr-5">
+          Contact Us
+        </button>
+      </nav>
+      <Link
+        to="/manager/dashboard/home"
+        className=" font-semibold hover:text-primary flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 gap-2">
+        <div>Dashboard</div>
+        <div className="text-primary text-xl">
+          <i className="fas fa-home"></i>
         </div>
       </Link>
       <button
@@ -109,7 +231,7 @@ const Navbar = ({ auth, logoutManager }) => {
         className=" font-semibold hover:text-primary flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 gap-2">
         <div>Logout</div>
         <div className="text-primary text-xl">
-          <i class="fas fa-sign-out-alt"></i>
+          <i className="fas fa-sign-out-alt"></i>
         </div>
       </button>
     </Fragment>
@@ -129,7 +251,7 @@ const Navbar = ({ auth, logoutManager }) => {
   return (
     !match && (
       <header className="text-gray-600 body-font">
-        <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <div className="container mx-auto flex flex-wrap p-5 items-center">
           {setNavLinks()}
         </div>
       </header>
@@ -138,10 +260,12 @@ const Navbar = ({ auth, logoutManager }) => {
 };
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired,
   logoutManager: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  order: state.order,
 });
 const mapDispatchToProps = {
   logoutManager,

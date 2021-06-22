@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { createProduct } from "../../../../../actions/product.action";
+import {createProduct} from "../../../../../actions/product.actions"
 import { getCategories } from "../../../../../actions/category.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -39,6 +39,19 @@ const AddProduct = ({ createProduct, getCategories, category }) => {
     <section className=" text-gray-600 p-8">
       <div className="border-2 border-gray-200 p-8 rounded-lg">
         <form onSubmit={(e) => onSubmitForm(e)}>
+          <div className="mb-4 w-full">
+            <label htmlFor="image" className="leading-7 text-sm text-gray-600">
+              Image
+            </label>
+            <input
+              onChange={(e) => onInputChange(e)}
+              required
+              type="text"
+              id="image"
+              name="image"
+              className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
           <div className="mb-4 w-full">
             <label
               htmlFor="productName"

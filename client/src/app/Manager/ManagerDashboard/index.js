@@ -12,6 +12,7 @@ import ManagerTopbar from "./Topbar";
 import AddMenu from "./Menu/addMenu";
 import AddCategory from "./Categories/addCategory";
 import AddProduct from "./Products/addProduct";
+
 const ManagerDashboard = (props) => {
   return (
     <Fragment>
@@ -19,7 +20,7 @@ const ManagerDashboard = (props) => {
       <div className="flex">
         <Sidebar></Sidebar>
         <Switch>
-          <div className="h-screen w-full">
+          <div className="h-screen w-full overflow-y-auto">
             <Route
               exact
               path="/manager/dashboard/home"
@@ -56,6 +57,7 @@ const ManagerDashboard = (props) => {
               exact
               path="/manager/dashboard/orders/:orderId"
               component={OrderId}></Route>
+            
           </div>
         </Switch>
       </div>

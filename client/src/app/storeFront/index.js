@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { getOwnedMenu } from "../../actions/menu.actions";
-import { getProductByCategory } from "../../actions/product.action";
-import Spinner from "../utils/Spinner";
+import {getProductByCategory} from "../../actions/product.actions";
+import Spinner from "../utils/spinner"
 import {
   addToClientOrder,
   createClientOrder,
@@ -31,9 +31,10 @@ const StoreFront = ({
     menu.menu &&
       getProductByCategory(menu.menu?.categories[0]._id, restaurantId);
   }, [product.loading, restaurantId, menu.loading]);
-    
+
   const addToCart = (e, product) => {
     e.preventDefault();
+    console.log(restaurantId);
     if (auth.isAuthenticated) {
       if (localStorage.getItem("orderId")) {
         addToClientOrder(
@@ -45,19 +46,23 @@ const StoreFront = ({
               totalPrice: product.price,
             },
           },
-          localStorage.getItem("orderId")
+          localStorage.getItem("orderId"),
+          restaurantId
         );
       } else {
-        createClientOrder({
-          items: [
-            {
-              product: product._id,
-              quantity: 1,
-              price: product.price,
-              totalPrice: product.price,
-            },
-          ],
-        });
+        createClientOrder(
+          {
+            items: [
+              {
+                product: product._id,
+                quantity: 1,
+                price: product.price,
+                totalPrice: product.price,
+              },
+            ],
+          },
+          restaurantId
+        );
       }
     } else {
       history.push("/client/login");
@@ -85,18 +90,14 @@ const StoreFront = ({
             })}
           </div>
           <div className="border-r border-t border-gray-300 p-4 w-3/4">
-            <div className="grid grid-cols-4 justify-items-stretch">
+            <div className="grid grid-cols-4 justify-items-stretch gap-4">
               {product.products.map((product, index) => {
                 return (
                   <div
                     key={product._id}
                     className="rounded-sm bg-white flex flex-col justify-around items-center shadow-md">
                     <div className="bg-cover">
-                      <img
-                        className="rounded-sm"
-                        src="https://mk0apibacklinkov1r5n.kinstacdn.com/app/uploads/2018/06/ht2-hr6-vegan-curry-640x360.webp"
-                        alt=""
-                      />
+                      <img className="rounded-sm" src={product.image} alt="" />
                     </div>
                     <div className="mt-4 w-full p-4 max-h-32">
                       <div className="flex justify-between items-baseline">

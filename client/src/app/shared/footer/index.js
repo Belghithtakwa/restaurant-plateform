@@ -1,19 +1,27 @@
 import React from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, Link } from "react-router-dom";
+import { APP_TITLE } from "../../../constants/app";
 const Footer = () => {
   const notShowInUrls = [
     "/manager/login",
     "/manager/register",
     "/manager/dashboard",
+    "/client/login",
+    "/client/register",
+    "/client/dashboard",
     "/menu",
+    "/order",
+    "/pricing",
+    "/payment",
+    "/About",
   ];
   const match = useRouteMatch(notShowInUrls);
   return (
     !match && (
       <footer className="text-gray-600 w-full">
-        <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+        <div className="container px-5 py-24 mx-auto flex items-center justify-between">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <a className="flex font-medium items-center md:justify-start justify-center text-gray-900">
+            <Link to="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -25,134 +33,32 @@ const Footer = () => {
                 viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>
-              <span className="ml-3 text-xl">Tailblocks</span>
-            </a>
-            <p className="mt-2 text-sm text-gray-500">
-              Air plant banjo lyft occupy retro adaptogen indego
-            </p>
+              <span className="ml-3 text-xl">{APP_TITLE}</span>
+            </Link>
           </div>
-          <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    First Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Second Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Third Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Fourth Link
-                  </a>
-                </li>
-              </nav>
-            </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    First Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Second Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Third Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Fourth Link
-                  </a>
-                </li>
-              </nav>
-            </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    First Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Second Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Third Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Fourth Link
-                  </a>
-                </li>
-              </nav>
-            </div>
-            <div id="contact-us-app" className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-                Contact Us
-              </h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    First Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Second Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Third Link
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Fourth Link
-                  </a>
-                </li>
-              </nav>
-            </div>
+          <div className="flex mt-10 text-center gap-24">
+            <Link
+              to="/about"
+              className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+              About
+            </Link>
+            <Link
+              to="/pricing"
+              className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+              CATEGORIES
+            </Link>
+            <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+              types of businesses
+            </h2>
+            <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+              Contact Us
+            </h2>
           </div>
         </div>
         <div className="bg-gray-100">
           <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
             <p className="text-gray-500 text-sm text-center sm:text-left">
-              © 2020 Tailblocks —
-              <a
-                href="https://twitter.com/knyttneve"
-                rel="noopener noreferrer"
-                className="text-gray-600 ml-1"
-                target="_blank">
-                @knyttneve
-              </a>
+              © 2020 Restaurant
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
               <a className="text-gray-500">

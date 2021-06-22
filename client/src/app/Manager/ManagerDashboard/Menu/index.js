@@ -1,22 +1,32 @@
 import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
   getOwnedMenus,
   deleteOwnedMenu,
 } from "../../../../actions/menu.actions";
-import Spinner from "../../../utils/Spinner";
+import Spinner from "../../../utils/spinner"
+import qrcode from "qrcode";
+import { useHistory } from "react-router-dom";
 const DashboardMenu = ({
   getOwnedMenus,
   deleteOwnedMenu,
   menu,
   restaurant,
 }) => {
+  let history = useHistory();
   useEffect(() => {
     getOwnedMenus(localStorage.getItem("currentRestaurant"));
   }, [getOwnedMenus, menu.loading]);
-
+  const downloadQr = async (e, menuURL, menuName) => {
+    const qr = await qrcode.toDataURL(`http://localhost:3000/menu${menuURL}`);
+    console.log(qr)
+    const a = document.createElement("a");
+    a.href = qr;
+    a.download = `${menuName}.png`;
+    a.click();
+  };
   return menu.loading ? (
     <Spinner />
   ) : (
@@ -71,6 +81,13 @@ const DashboardMenu = ({
                           }}
                           className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
                           <i className="fas fa-tv"></i>
+                        </button>
+                        <button
+                          onClick={(e) =>
+                            downloadQr(e, menu.menuURL, menu.menuName)
+                          }
+                          className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
+                          <i className="fas fa-qrcode"></i>
                         </button>
                       </td>
                     </tr>

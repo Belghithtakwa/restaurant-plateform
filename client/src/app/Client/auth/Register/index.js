@@ -19,7 +19,7 @@ const ClientRegister = ({ registerClient }) => {
   };
   const onSubmitForm = (e) => {
     e.preventDefault();
-    registerClient(registerForm)
+    registerClient(registerForm);
   };
   return (
     <div className="text-gray-600 body-font relative">
@@ -31,114 +31,126 @@ const ClientRegister = ({ registerClient }) => {
           <form onSubmit={(e) => onSubmitForm(e)}>
             <div className="relative mb-4 flex w-full gap-4">
               <div className="w-1/2">
-                <label for="firstName" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="firstName"
+                  className="leading-7 text-sm text-gray-600">
                   First Name
                 </label>
                 <input
                   type="text"
                   id="firstName"
                   name="firstName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/2">
-                <label for="lastName" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="lastName"
+                  className="leading-7 text-sm text-gray-600">
                   Last Name
                 </label>
                 <input
                   type="text"
                   id="lastName"
                   name="lastName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   required
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
             <div className="relative mb-4">
-              <label for="email" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="email"
+                className="leading-7 text-sm text-gray-600">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <div className="relative mb-4 flex w-full gap-4">
               <div className="w-1/3">
-                <label for="streetName" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="streetName"
+                  className="leading-7 text-sm text-gray-600">
                   Street Name
                 </label>
                 <input
                   type="text"
                   id="streetName"
                   name="streetName"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/3">
                 <label
-                  for="blockNumber"
+                  htmlFor="blockNumber"
                   className="leading-7 text-sm text-gray-600">
                   Block Number
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="blockNumber"
                   name="blockNumber"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="w-1/3">
-                <label for="codeZip" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="codeZip"
+                  className="leading-7 text-sm text-gray-600">
                   Zip Code
                 </label>
                 <input
                   type="number"
                   id="codeZip"
                   name="codeZip"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  
+                  className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
             </div>
             <div className="relative mb-4">
-              <label for="phoneNumber" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="phoneNumber"
+                className="leading-7 text-sm text-gray-600">
                 Phone Number
               </label>
               <input
                 type="text"
                 id="phoneNumber"
                 name="phoneNumber"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 required
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <div className="relative mb-4">
-              <label for="password" className="leading-7 text-sm text-gray-600">
+              <label
+                htmlFor="password"
+                className="leading-7 text-sm text-gray-600">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                
+                className="w-full bg-white rounded border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary-tint text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 onChange={(e) => onInputChange(e)}
               />
             </div>
             <button
               type="submit"
-              className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
               Register
             </button>
           </form>

@@ -36,6 +36,6 @@ MenuSchema.methods.slugify = function () {
     ((Math.random() * Math.pow(36, 6)) | 0).toString(36);
 };
 MenuSchema.methods.Linkify = function () {
-  this.menuURL = `/${this.restaurant}/${this._id}`;
+  this.menuURL = `http://localhost:3000/menu/${this.restaurant}/${this._id}`;
 };
 module.exports = mongoose.model("Menu", MenuSchema);

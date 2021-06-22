@@ -34,7 +34,9 @@ export default function (state = initialState, action) {
       };
     case USER_LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
-      localStorage.setItem("currentRestaurant", payload.user.restaurants[0]);
+      if (payload.user.restaurants) {
+        localStorage.setItem("currentRestaurant", payload.user.restaurants[0]);
+      }
       return {
         ...state,
         ...payload,

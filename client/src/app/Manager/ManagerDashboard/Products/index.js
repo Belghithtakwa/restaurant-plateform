@@ -2,8 +2,9 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getProducts, deleteProduct } from "../../../../actions/product.action";
-import Spinner from "../../../utils/Spinner";
+import {getProducts, deleteProduct} from "../../../../actions/product.actions"
+
+import Spinner from "../../../utils/spinner";
 const DashboardProducts = ({
   getProducts,
   deleteProduct,
@@ -73,7 +74,7 @@ const DashboardProducts = ({
                             );
                           }}
                           className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
-                          <i class="fas fa-trash"></i>
+                          <i className="fas fa-trash"></i>
                         </button>
                       </td>
                     </tr>
