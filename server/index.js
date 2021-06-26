@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require('path')
 // connect Database
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -26,12 +27,14 @@ const productRoutes = require("./routes/product.routes");
 const categoryRoutes = require("./routes/category.routes");
 const addressRoutes = require("./routes/address.routes");
 const orderRoutes = require("./routes/order.routes");
+const messageRoutes = require("./routes/message.routes");
+const dashboardRoutes = require("./routes/dashboard.routes");
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 // routes middlewares
-app.use("/api/auth", clientAuthRoutes);
+app.use("/api/auth/client", clientAuthRoutes);
 app.use("/api/auth", authCheckRoutes);
 app.use("/api/auth/manager", managerAuthRoutes);
 app.use("/api/feedbacks", feedbackRoutes);
@@ -40,7 +43,15 @@ app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/addresses", addressRoutes);
-app.use("/api/order", orderRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+// Serve static assets if in production
+
+	app.use( express.static( "./build" ) );
+	app.use( "*", ( req, res ) => {
+		res.sendFile( path.resolve("build", "index.html" ) );
+	} );
 
 const port = process.env.PORT || 8000;
 

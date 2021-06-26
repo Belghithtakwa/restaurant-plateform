@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { getOwnedMenu } from "../../actions/menu.actions";
-import {getProductByCategory} from "../../actions/product.actions";
-import Spinner from "../utils/spinner"
+import { getProductByCategory } from "../../actions/product.action";
+import Spinner from "../utils/Spinner";
 import {
   addToClientOrder,
   createClientOrder,
-  getOwnedOrder,
 } from "../../actions/order.actions";
 import Cart from "./Cart";
 const StoreFront = ({
@@ -19,12 +18,12 @@ const StoreFront = ({
   product,
   addToClientOrder,
   createClientOrder,
-  getOwnedOrder,
 }) => {
   let history = useHistory();
   const { menuId, restaurantId } = useParams();
 
   useEffect(() => {
+    console.log(menuId, restaurantId);
     getOwnedMenu(menuId, restaurantId);
   }, [menuId, restaurantId, menu.loading, getOwnedMenu]);
   useEffect(() => {
@@ -65,9 +64,13 @@ const StoreFront = ({
         );
       }
     } else {
-      history.push("/client/login");
+      history.push(`/client/login?url=${window.location.href}`);
     }
   };
+
+  if (!auth.loading && !auth.isAuthenticated) {
+    history.push(`/client/login`);
+  }
   return menu.loading || product.loading ? (
     <Spinner />
   ) : (
@@ -82,6 +85,9 @@ const StoreFront = ({
             {menu.menu.categories.map((category, index) => {
               return (
                 <div
+                  onClick={(e) =>
+                    getProductByCategory(category._id, restaurantId)
+                  }
                   key={category._id}
                   className="text-xl py-4 px-6 bg-primary hover:bg-primary-tint cursor-pointer">
                   {category.categoryName}
@@ -131,7 +137,6 @@ StoreFront.propTypes = {
   getOwnedMenu: PropTypes.func.isRequired,
   addToClientOrder: PropTypes.func.isRequired,
   createClientOrder: PropTypes.func.isRequired,
-  getOwnedOrder: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   menu: state.menu,
@@ -144,7 +149,6 @@ const mapDispatchToProps = {
   getProductByCategory,
   addToClientOrder,
   createClientOrder,
-  getOwnedOrder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreFront);

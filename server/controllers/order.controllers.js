@@ -3,7 +3,7 @@ const Order = require("../models/order.models");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find({restaurant: req.restaurant._id});
     return res.status(200).json({ orders: orders });
   } catch (err) {
     return res.status(500).json(err);
@@ -211,7 +211,7 @@ const payOrderWithStripe = async (req, res) => {
           name: element.product.productName,
           images: [element.product.image],
         },
-        unit_amount: element.totalPrice,
+        unit_amount: element.totalPrice * 1000,
       },
       quantity: element.quantity,
     });
@@ -220,8 +220,8 @@ const payOrderWithStripe = async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: `http://localhost:3000/orders/details/${order.code}?success=true`,
-    cancel_url: `http://localhost:3000/orders/details/${order.code}?success=fasle`,
+    success_url: `${req.protocol}://${req.get('host')}/orders/details/${order.code}?success=true`,
+    cancel_url: `${req.protocol}://${req.get('host')}/orders/details/${order.code}?success=fasle`,
   });
   return res.json({ session: session.id });
 };

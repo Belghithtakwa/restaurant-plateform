@@ -75,7 +75,7 @@ const createRestaurant = async (req, res) => {
   }
 };
 const createOwnedRestaurant = async (req, res) => {
-  // TODO: add restaurant address check
+  
   const owners = [...req.body.owner, req.verifiedUser._id];
   const newRestaurant = new Restaurant({
     restaurantName: req.body.restaurantName,

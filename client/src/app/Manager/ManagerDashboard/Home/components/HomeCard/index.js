@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 const HomeCard = ({
@@ -13,12 +13,14 @@ const HomeCard = ({
     <div className="md:w-1/4 sm:w-1/2 w-full">
       <div
         className=" flex justify-between items-center border-2 border-gray-200 p-8 rounded-lg "
-        style={{ color: `${iconColor}` }}>
+        style={{ color: `${iconColor}` }}
+      >
         <div className="text-2xl">
           <i className={symbolicIcon}></i>
           <h2
             className="title-font font-medium text-3xl"
-            style={{ color: `${textColor}` }}>
+            style={{ color: `${textColor}` }}
+          >
             {data}
           </h2>
           <p className="leading-relaxed text-lg">{desc}</p>

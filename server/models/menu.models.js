@@ -3,7 +3,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const Schema = mongoose.Schema;
 const slug = require("slug");
 const MenuSchema = new Schema({
-  menuName: { type: String, maxlength: 256, minlength: 6, unique: true },
+  menuName: { type: String, maxlength: 256, minlength: 6 },
   menuSlug: {
     type: String,
     maxlength: 512,

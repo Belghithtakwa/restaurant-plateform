@@ -6,7 +6,7 @@ import {
   getOwnedMenus,
   deleteOwnedMenu,
 } from "../../../../actions/menu.actions";
-import Spinner from "../../../utils/spinner"
+import Spinner from "../../../utils/Spinner";
 import qrcode from "qrcode";
 import { useHistory } from "react-router-dom";
 const DashboardMenu = ({
@@ -15,7 +15,7 @@ const DashboardMenu = ({
   menu,
   restaurant,
 }) => {
-  let history = useHistory();
+ 
   useEffect(() => {
     getOwnedMenus(localStorage.getItem("currentRestaurant"));
   }, [getOwnedMenus, menu.loading]);
@@ -66,28 +66,25 @@ const DashboardMenu = ({
                         {menu.menuURL}
                       </td>
                       <td className="py-4 px-6 border-b border-gray-200">
-                        <Link
-                          to={`/manager/dashboard/menus/${menu._id}/edit`}
-                          className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs hover:bg-primary hover:text-white">
-                          <i className="fas fa-edit"></i>
-                        </Link>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            deleteOwnedMenu(
-                              menu._id,
-                              restaurant.currentRestaurant._id
-                            );
-                          }}
-                          className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
-                          <i className="fas fa-tv"></i>
-                        </button>
+                       
+                       
                         <button
                           onClick={(e) =>
                             downloadQr(e, menu.menuURL, menu.menuName)
                           }
                           className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
                           <i className="fas fa-qrcode"></i>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteOwnedMenu(
+                              menu._id,
+                              localStorage.getItem("currentRestaurant")
+                            );
+                          }}
+                          className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
+                          <i className="fas fa-trash"></i>
                         </button>
                       </td>
                     </tr>

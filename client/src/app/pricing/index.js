@@ -1,5 +1,5 @@
-import React , {Fragment} from 'react'
-
+import React, {Fragment} from 'react'
+import {Link} from "react-router-dom"
 const Pricing = () => {
   return (
     <Fragment>
@@ -118,9 +118,9 @@ const Pricing = () => {
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </Fragment>
-  )
+  );
 }
 
-export default Pricing
+export default Pricing;

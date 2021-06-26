@@ -37,22 +37,23 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex mt-10 text-center gap-24">
+          <Link to="/" className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+              Home
+            </Link>
             <Link
-              to="/about"
+            to="/about" 
               className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
               About
             </Link>
             <Link
               to="/pricing"
               className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-              CATEGORIES
+             Pricing
             </Link>
-            <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
-              types of businesses
-            </h2>
-            <h2 className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
+           
+            <Link to="/contact" className=" font-medium text-gray-900 tracking-widest text-sm mb-3">
               Contact Us
-            </h2>
+            </Link>
           </div>
         </div>
         <div className="bg-gray-100">

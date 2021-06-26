@@ -5,15 +5,7 @@ const Sidebar = () => {
   return (
     <Fragment>
       <aside className="flex flex-col items-center bg-white text-gray-700 shadow w-16">
-        {/* <div className="h-16 flex items-center w-full">
-          <a className="h-6 w-6 mx-auto" href="http://svelte.dev/">
-            <img
-              className="h-6 w-6 mx-auto"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/512px-Svelte_Logo.svg.png"
-              alt="svelte logo"
-            />
-          </a>
-        </div> */}
+       
 
         <ul>
           <li className="hover:text-primary">

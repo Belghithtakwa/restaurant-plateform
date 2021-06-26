@@ -61,12 +61,6 @@ const ClientTopbar = ({ logoutClient, auth }) => {
                   ref={dropDownRef}
                   className="absolute z-20 min-w-max top-12 right-0 bg-white shadow-md border border-gray-300 rounded-md h-auto">
                   <div className="text-left flex flex-col">
-                  
-                    <Link
-                      to="/manager/dashboard/restaurants"
-                      className="p-2 hover:bg-primary cursor-pointer hover:text-white">
-                      Restaurants
-                    </Link>
                     <div
                       onClick={(e) => {
                         logoutClient();

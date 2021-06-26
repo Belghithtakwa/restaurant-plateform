@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const slug = require("slug");
 const ProductSchema = new Schema(
   {
-    productName: { type: String, maxlength: 256, minlength: 6, unique: true },
+    productName: { type: String, maxlength: 256, minlength: 6 },
     productSlug: {
       type: String,
       maxlength: 512,

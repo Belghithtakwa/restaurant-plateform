@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+
 import Sidebar from "./Sidebar";
 import { Switch, Route } from "react-router-dom";
 import ClientTopbar from "./Topbar";
 import DashboardHome from "./Home";
-const ClientDashboard = ({}) => {
+const ClientDashboard = () => {
   return (
     <Fragment>
       <ClientTopbar />
@@ -16,13 +16,12 @@ const ClientDashboard = ({}) => {
               exact
               path="/client/dashboard/home"
               component={DashboardHome}></Route>
+              {/* <Route exact path="/client/dashboard/orders" component={OrdersClient}/> */}
           </div>
         </Switch>
       </div>
     </Fragment>
   );
-};
-
-ClientDashboard.propTypes = {};
+}
 
 export default ClientDashboard;

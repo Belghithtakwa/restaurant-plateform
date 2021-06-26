@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerClient } from "../../../../actions/authClient.actions";
-const ClientRegister = ({ registerClient }) => {
+import Spinner from "../../../utils/Spinner";
+import { useQuery } from "../../../../hooks";
+const ClientRegister = ({ registerClient, auth }) => {
+  let query = useQuery()
+  let history = useHistory();
   const [registerForm, setRegisterForm] = useState({
     streetName: "",
     codeZip: "",
@@ -17,11 +21,14 @@ const ClientRegister = ({ registerClient }) => {
   const onInputChange = (e) => {
     setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
   };
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
-    registerClient(registerForm);
+    await registerClient(registerForm);
+    history.push(`/client/login?url=${query.get("url")}`);
   };
-  return (
+  return auth.loading ? (
+    <Spinner />
+  ) : (
     <div className="text-gray-600 body-font relative">
       <div className="container px-5 py-24 mx-auto flex">
         <div className="bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
@@ -33,7 +40,8 @@ const ClientRegister = ({ registerClient }) => {
               <div className="w-1/2">
                 <label
                   htmlFor="firstName"
-                  className="leading-7 text-sm text-gray-600">
+                  className="leading-7 text-sm text-gray-600"
+                >
                   First Name
                 </label>
                 <input
@@ -48,7 +56,8 @@ const ClientRegister = ({ registerClient }) => {
               <div className="w-1/2">
                 <label
                   htmlFor="lastName"
-                  className="leading-7 text-sm text-gray-600">
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Last Name
                 </label>
                 <input
@@ -64,7 +73,8 @@ const ClientRegister = ({ registerClient }) => {
             <div className="relative mb-4">
               <label
                 htmlFor="email"
-                className="leading-7 text-sm text-gray-600">
+                className="leading-7 text-sm text-gray-600"
+              >
                 Email
               </label>
               <input
@@ -79,7 +89,8 @@ const ClientRegister = ({ registerClient }) => {
               <div className="w-1/3">
                 <label
                   htmlFor="streetName"
-                  className="leading-7 text-sm text-gray-600">
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Street Name
                 </label>
                 <input
@@ -93,7 +104,8 @@ const ClientRegister = ({ registerClient }) => {
               <div className="w-1/3">
                 <label
                   htmlFor="blockNumber"
-                  className="leading-7 text-sm text-gray-600">
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Block Number
                 </label>
                 <input
@@ -107,7 +119,8 @@ const ClientRegister = ({ registerClient }) => {
               <div className="w-1/3">
                 <label
                   htmlFor="codeZip"
-                  className="leading-7 text-sm text-gray-600">
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Zip Code
                 </label>
                 <input
@@ -122,7 +135,8 @@ const ClientRegister = ({ registerClient }) => {
             <div className="relative mb-4">
               <label
                 htmlFor="phoneNumber"
-                className="leading-7 text-sm text-gray-600">
+                className="leading-7 text-sm text-gray-600"
+              >
                 Phone Number
               </label>
               <input
@@ -137,7 +151,8 @@ const ClientRegister = ({ registerClient }) => {
             <div className="relative mb-4">
               <label
                 htmlFor="password"
-                className="leading-7 text-sm text-gray-600">
+                className="leading-7 text-sm text-gray-600"
+              >
                 Password
               </label>
               <input
@@ -150,14 +165,16 @@ const ClientRegister = ({ registerClient }) => {
             </div>
             <button
               type="submit"
-              className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg">
+              className="text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-shade rounded text-lg"
+            >
               Register
             </button>
           </form>
 
           <Link
-            to="/client/login"
-            className="text-xs text-gray-500 mt-3 hover:underline">
+            to={`/client/login?url=${query.get("url")}`}
+            className="text-xs text-gray-500 mt-3 hover:underline"
+          >
             Login
           </Link>
         </div>
@@ -168,9 +185,12 @@ const ClientRegister = ({ registerClient }) => {
 
 ClientRegister.propTypes = {
   registerClient: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
 
 const mapDispatchToProps = {
   registerClient,

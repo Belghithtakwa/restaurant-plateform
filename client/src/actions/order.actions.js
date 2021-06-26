@@ -11,13 +11,25 @@ import {
   GET_MANAGER_ORDERS,
   CONFIRM_ORDER,
   CANCEL_ORDER,
+  GET_CLIENT_ORDERS,
 } from "./types";
-
+export const getClientOrders = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/orders`);
+    dispatch({
+      type: GET_CLIENT_ORDERS,
+      payload: res.data.orders,
+    });
+  } catch (err) {
+    dispatch({
+      type: OWNED_ORDER_ERROR,
+      payload: err,
+    });
+  }
+};
 export const getManagerOrders = (restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/restaurants/${restaurantId}/orders`
-    );
+    const res = await axios.get(`/api/restaurants/${restaurantId}/orders`);
     dispatch({
       type: GET_MANAGER_ORDERS,
       payload: res.data.orders,
@@ -31,9 +43,7 @@ export const getManagerOrders = (restaurantId) => async (dispatch) => {
 };
 export const getOwnedOrder = (orderId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/orders/client/${orderId}`
-    );
+    const res = await axios.get(`/api/orders/client/${orderId}`);
     dispatch({
       type: GET_OWNED_ORDER,
       payload: res.data.order,
@@ -48,7 +58,7 @@ export const getOwnedOrder = (orderId) => async (dispatch) => {
 export const getManagerOrder = (orderId, restaurantId) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/restaurants/${restaurantId}/orders/${orderId}`
+      `/api/restaurants/${restaurantId}/orders/${orderId}`
     );
     dispatch({
       type: GET_MANAGER_ORDER,
@@ -63,9 +73,7 @@ export const getManagerOrder = (orderId, restaurantId) => async (dispatch) => {
 };
 export const getOwnedOrderByCode = (code) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/orders/client/${code}/bycode`
-    );
+    const res = await axios.get(`/api/orders/client/${code}/bycode`);
     dispatch({
       type: GET_OWNED_ORDER,
       payload: res.data.order,
@@ -85,7 +93,7 @@ export const createClientOrder = (data, restaurantId) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      `http://localhost:8000/api/orders/${restaurantId}/client`,
+      `/api/orders/${restaurantId}/client`,
       data,
       config
     );
@@ -109,7 +117,7 @@ export const addToClientOrder =
     };
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/orders/${restaurantId}/client/${orderId}`,
+        `/api/orders/${restaurantId}/client/${orderId}`,
         data,
         config
       );
@@ -126,9 +134,7 @@ export const addToClientOrder =
   };
 export const deleteOwnedOrder = (orderId, restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.delete(
-      `http://localhost:8000/api/menus/me/${restaurantId}/${orderId}`
-    );
+    const res = await axios.delete(`/api/menus/me/${restaurantId}/${orderId}`);
     dispatch({
       type: DELETE_OWNED_ORDER,
       payload: res.data.deletedOrder._id,
@@ -149,7 +155,7 @@ export const updateOwnedOrder =
     };
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/orders/me/${restaurantId}/${orderId}`,
+        `/api/orders/me/${restaurantId}/${orderId}`,
         data,
         config
       );
@@ -172,7 +178,7 @@ export const checkoutClientOrder = (orderId, data) => async (dispatch) => {
   };
   try {
     const res = await axios.put(
-      `http://localhost:8000/api/orders/client/${orderId}/checkout`,
+      `/api/orders/client/${orderId}/checkout`,
       data,
       config
     );
@@ -190,9 +196,7 @@ export const checkoutClientOrder = (orderId, data) => async (dispatch) => {
 
 export const confirmOrder = (orderId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/orders/${orderId}/confirm`
-    );
+    const res = await axios.get(`/api/orders/${orderId}/confirm`);
     dispatch({
       type: CONFIRM_ORDER,
       payload: res.data.order,
@@ -206,9 +210,7 @@ export const confirmOrder = (orderId) => async (dispatch) => {
 };
 export const cancelOrder = (orderId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/orders/${orderId}/cancel`
-    );
+    const res = await axios.get(`/api/orders/${orderId}/cancel`);
     dispatch({
       type: CANCEL_ORDER,
       payload: res.data.order,

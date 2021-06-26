@@ -2,7 +2,7 @@ const router = require("express").Router();
 const categoryControllers = require("../controllers/category.controllers");
 const Category = require("../models/category.models");
 const Restaurant = require("../models/restaurant.models");
-const isOwnedCategory = require("../middlewares/isOwnedCategory");
+const isOwnedRestaurant = require('../middlewares/isOwnedRestaurant')
 const isManager = require("../middlewares/isManager");
 const isActive = require("../middlewares/isActive");
 const verifyToken = require("../middlewares/verifyToken");
@@ -40,7 +40,7 @@ router.put(
   verifyToken,
   isActive,
   isManager,
-  isOwnedCategory,
+ isOwnedRestaurant,
   categoryControllers.updateCategory
 );
 router.delete(
@@ -48,7 +48,7 @@ router.delete(
   verifyToken,
   isActive,
   isManager,
-  isOwnedCategory,
+ isOwnedRestaurant,
   categoryControllers.deleteCategory
 );
 

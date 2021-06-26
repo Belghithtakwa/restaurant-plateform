@@ -21,7 +21,7 @@ const getClientById = async (req, res) => {
   const clientId = req.verifiedUser._id;
   try {
     const client = await Client.findById(clientId);
-    return res.status(500).json({ client: client });
+    return res.status(200).json({ client: client });
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -29,7 +29,7 @@ const getClientById = async (req, res) => {
 const getClient = async (req, res) => {
   const client = req.client;
   try {
-    return res.status(500).json({ client: client });
+    return res.status(200).json({ client: client });
   } catch (err) {
     return res.status(500).json(err);
   }

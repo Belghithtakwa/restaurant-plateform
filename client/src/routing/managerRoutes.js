@@ -1,6 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Spinner from "../app/utils/spinner";
+import Spinner from "../app/utils/Spinner";
 import PropTypes from "prop-types";
 
 const ManagerRoutes = (

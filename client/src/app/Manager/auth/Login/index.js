@@ -1,11 +1,10 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import {loginManager} from "../../../../actions/authManager.action";
+import { loginManager } from "../../../../actions/authManager.actions";
 import { getOwnedRestaurant } from "../../../../actions/restaurant.actions";
 import { connect } from "react-redux";
-import Spinner from "../../../utils/spinner"
-
+import Spinner from "../../../utils/Spinner";
 import {useHistory} from 'react-router-dom';
 const ManagerLogin = ({
   loginManager,

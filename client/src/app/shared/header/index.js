@@ -3,11 +3,11 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { APP_TITLE } from "../../../constants/app";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {logoutManager} from "../../../actions/authManager.action";
+import { logoutManager } from "../../../actions/authManager.actions";
 import { logoutClient } from "../../../actions/authClient.actions";
 import { useHistory } from "react-router-dom";
 
-const Navbar = ({ auth, order, logoutManager }) => {
+const Navbar = ({ auth, order, logoutManager, logoutClient }) => {
   const notShowInUrls = [
     "/manager/dashboard",
     "/client/dashboard",
@@ -77,9 +77,14 @@ const Navbar = ({ auth, order, logoutManager }) => {
         <Link to="/Pricing" className=" font-semibold hover:text-primary mr-5">
           Pricing
         </Link>
-        <Link className=" font-semibold hover:text-primary mr-5">
+       
+         <button
+          onClick={(e) => {
+            scrollToContactUs(e);
+          }}
+          className=" appearance-none focus:outline-none outline-none font-semibold hover:text-primary mr-5">
           Contact Us
-        </Link>
+        </button>
       </nav>
 
       <Link
@@ -94,7 +99,7 @@ const Navbar = ({ auth, order, logoutManager }) => {
   );
   const clientLinks = (
     <Fragment>
-      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
+      <Link to="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -166,7 +171,7 @@ const Navbar = ({ auth, order, logoutManager }) => {
   );
   const managerLinks = (
     <Fragment>
-      <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
+      <Link to ="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 mr-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -262,6 +267,7 @@ Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
   order: PropTypes.object.isRequired,
   logoutManager: PropTypes.func.isRequired,
+  logoutClient: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
@@ -269,6 +275,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   logoutManager,
+  logoutClient
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

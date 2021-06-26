@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {createProduct} from "../../../../../actions/product.actions"
+import { createProduct } from "../../../../../actions/product.action";
 import { getCategories } from "../../../../../actions/category.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -11,6 +11,7 @@ const AddProduct = ({ createProduct, getCategories, category }) => {
     productSlug: "",
     description: "",
     restaurant: "",
+    image: '',
     category: "",
     price: "",
   });
@@ -29,6 +30,7 @@ const AddProduct = ({ createProduct, getCategories, category }) => {
         description: ProductData.description,
         category: ProductData.category,
         price: ProductData.price,
+        image: ProductData.image
       },
       localStorage.getItem("currentRestaurant")
     );

@@ -45,7 +45,7 @@ const updateFeedback = async (req, res)=>{
   const data = req.body;
   const {...dataToUpdate} = data;
   const updatedfeedback = await Feedback.findByIdAndUpdate(feedback._id,dataToUpdate, {new : true});
-  return res.status(500).json({updatedfeedback : updatedfeedback});
+  return res.status(200).json({updatedfeedback : updatedfeedback});
 } catch (err){
   return res.status(500).json(err);
 }

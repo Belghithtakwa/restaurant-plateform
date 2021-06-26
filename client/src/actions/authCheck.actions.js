@@ -10,9 +10,9 @@ export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
- // TODO: Set global env variable for base url
+  // TODO: Set global env variable for base url
   try {
-    const res = await axios.get("http://localhost:8000/api/auth/authcheck");
+    const res = await axios.get("/api/auth/authcheck");
     dispatch({
       type: USER_LOADED,
       payload: res.data,

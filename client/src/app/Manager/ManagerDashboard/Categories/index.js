@@ -6,7 +6,7 @@ import {
   getCategories,
   deleteCategory,
 } from "../../../../actions/category.actions";
-import Spinner from "../../../utils/spinner";
+import Spinner from "../../../utils/Spinner";
 const DashboardCategories = ({
   getCategories,
   deleteCategory,
@@ -15,7 +15,7 @@ const DashboardCategories = ({
 }) => {
   useEffect(() => {
     getCategories(localStorage.getItem("currentRestaurant"));
-  }, [getCategories, category.loading]);
+  }, [category.loading]);
 
   return category.loading ? (
     <Spinner />
@@ -66,7 +66,7 @@ const DashboardCategories = ({
                             e.preventDefault();
                             deleteCategory(
                               category._id,
-                              restaurant.currentRestaurant._id
+                              localStorage.getItem("currentRestaurant")
                             );
                           }}
                           className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">

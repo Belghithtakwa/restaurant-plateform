@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import {registerManager} from "../../../../actions/authManager.action"
-import Spinner from "../../../utils/spinner"
+import { registerManager } from "../../../../actions/authManager.actions";
+import Spinner from "../../../utils/Spinner";
 const ManagerRegister = ({
   registerManager,
-  auth: { isAuthenticated, loading },
+  auth: { isAuthenticated, loading, err },
 }) => {
   const [registerForm, setRegisterForm] = useState({
     streetName: "",
@@ -26,7 +26,9 @@ const ManagerRegister = ({
   const onSubmitForm = async (e) => {
     e.preventDefault();
     await registerManager(registerForm);
-    history.push("/manager/login");
+    if(!err){
+      history.push("/manager/login");
+    }
   };
   if (isAuthenticated) {
     history.push("/manager/dashboard/home");

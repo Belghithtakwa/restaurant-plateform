@@ -11,7 +11,7 @@ import CheckoutModal from "./CheckoutModal";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 const stripePromise = loadStripe(
-  "pk_test_51H4HhsIK4kdInodw5vGNJktjTNLRcqRvgG8wAyHGD0bbg9EUmGBixju9rAChukBuXG51MZjJzxnyWrrSaORki2jq008eqzzhrY"
+  "pk_test_51J2c1iGp2frw7VVaQajcwNiQurFNUcHLB1z9smclL7CSFZyWKQCqxZ67MPhyKdFi5HtJZlK0wriyIQvZR6KRVC6700pRt8EAJx"
 );
 
 const Checkout = ({ order, getOwnedOrder, checkoutClientOrder }) => {
@@ -38,19 +38,21 @@ const Checkout = ({ order, getOwnedOrder, checkoutClientOrder }) => {
     const stripe = await stripePromise;
     if (orderData.orderType === "delivery") {
       const res = await axios.get(
-        `http://localhost:8000/api/orders/${localStorage.getItem(
+        `/api/orders/${localStorage.getItem(
           "orderId"
         )}/client/pay?delivery=true`
       );
+      localStorage.removeItem("orderId");
       stripe.redirectToCheckout({
         sessionId: res.data.session,
       });
     } else {
       const res = await axios.get(
-        `http://localhost:8000/api/orders/${localStorage.getItem(
+        `/api/orders/${localStorage.getItem(
           "orderId"
         )}/client/pay?delivery=false`
       );
+      localStorage.removeItem("orderId");
       stripe.redirectToCheckout({
         sessionId: res.data.session,
       });

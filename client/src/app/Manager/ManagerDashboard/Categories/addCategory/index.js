@@ -14,9 +14,9 @@ const AddCategory = ({ createCategory }) => {
   const onInputChange = (e) => {
     setCategoryData({ ...CategoryData, [e.target.name]: e.target.value });
   };
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
-    createCategory(
+    await createCategory(
       {
         categoryName: CategoryData.categoryName,
         description: CategoryData.description,

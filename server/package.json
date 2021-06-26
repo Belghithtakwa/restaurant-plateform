@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "server": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,7 @@
     "mongoose": "^5.11.18",
     "mongoose-unique-validator": "^2.0.3",
     "slug": "^4.0.3",
-    "stripe": "^8.156.0",
+    "stripe": "^8.154.0",
     "validator": "^13.5.2"
   },
   "devDependencies": {

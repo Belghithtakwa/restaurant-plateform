@@ -10,9 +10,7 @@ import {
 
 export const getOwnedMenus = (restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/menus/${restaurantId}`
-    );
+    const res = await axios.get(`/api/menus/${restaurantId}`);
     dispatch({
       type: GET_OWNED_MENUS,
       payload: res.data.menus,
@@ -26,9 +24,7 @@ export const getOwnedMenus = (restaurantId) => async (dispatch) => {
 };
 export const getOwnedMenu = (menuId, restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/menus/${restaurantId}/${menuId}`
-    );
+    const res = await axios.get(`/api/menus/${restaurantId}/${menuId}`);
     dispatch({
       type: GET_OWNED_MENU,
       payload: res.data.menu,
@@ -48,11 +44,7 @@ export const createOwnedMenu = (data, restaurantId) => async (dispatch) => {
     },
   };
   try {
-    await axios.post(
-      `http://localhost:8000/api/menus/${restaurantId}`,
-      data,
-      config
-    );
+    await axios.post(`/api/menus/${restaurantId}`, data, config);
     dispatch({
       type: CREATE_OWNED_MENU,
     });
@@ -66,12 +58,10 @@ export const createOwnedMenu = (data, restaurantId) => async (dispatch) => {
 
 export const deleteOwnedMenu = (menuId, restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.delete(
-      `http://localhost:8000/api/menus/${restaurantId}/${menuId}`
-    );
+    const res = await axios.delete(`/api/menus/${restaurantId}/${menuId}`);
     dispatch({
       type: DELETE_OWNED_MENU,
-      payload: res.data.deletedMenu._id,
+      payload: res.data.menu._id,
     });
   } catch (err) {
     dispatch({
@@ -80,28 +70,27 @@ export const deleteOwnedMenu = (menuId, restaurantId) => async (dispatch) => {
     });
   }
 };
-export const updateOwnedMenu = (data, menuId, restaurantId) => async (
-  dispatch
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "Application/json",
-    },
+export const updateOwnedMenu =
+  (data, menuId, restaurantId) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    };
+    try {
+      const res = await axios.delete(
+        `/api/menus/${restaurantId}/${menuId}`,
+        data,
+        config
+      );
+      dispatch({
+        type: UPDATE_OWNED_MENU,
+        payload: res.data.updatedMenu,
+      });
+    } catch (err) {
+      dispatch({
+        type: OWNED_MENU_ERROR,
+        payload: err,
+      });
+    }
   };
-  try {
-    const res = await axios.delete(
-      `http://localhost:8000/api/menus/${restaurantId}/${menuId}`,
-      data,
-      config
-    );
-    dispatch({
-      type: UPDATE_OWNED_MENU,
-      payload: res.data.updatedMenu,
-    });
-  } catch (err) {
-    dispatch({
-      type: OWNED_MENU_ERROR,
-      payload: err,
-    });
-  }
-};

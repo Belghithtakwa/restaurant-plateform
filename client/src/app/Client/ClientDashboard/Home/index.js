@@ -1,10 +1,11 @@
 import React from 'react'
+import OrdersClient from "./Order"
 import PropTypes from 'prop-types'
 
-const DashboardHome = props => {
+const DashboardHome = () => {
     return (
         <div>
-            dasdsfqsdf
+          <OrdersClient />
         </div>
     )
 }

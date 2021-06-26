@@ -2,7 +2,7 @@ const Category = require("../models/category.models");
 
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find({ restaurant: req.restaurant._id });
     return res.status(200).json({ categories: categories });
   } catch (error) {
     res.status(500).json(error);
@@ -25,7 +25,7 @@ const createCategory = async (req, res) => {
   });
   try {
     const savedCategory = await newCategory.save();
-    return res.status(200).json({ savedCategory: savedCategory });
+    return res.status(200).json({ category: savedCategory });
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -34,7 +34,7 @@ const deleteCategory = async (req, res) => {
   const category = req.category;
   try {
     const deletedCategory = await Category.findByIdAndDelete(category._id);
-    return res.status(200).json(`${deletedCategory._id} is deleted succefully`);
+    return res.status(200).json({ category: deletedCategory });
   } catch (err) {
     return res.status(500).json(err);
   }

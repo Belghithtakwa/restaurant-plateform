@@ -12,6 +12,8 @@ import ManagerTopbar from "./Topbar";
 import AddMenu from "./Menu/addMenu";
 import AddCategory from "./Categories/addCategory";
 import AddProduct from "./Products/addProduct";
+import EditCategory from "./Categories/editCategory";
+import EditProduct from "./Products/editProduct";
 
 const ManagerDashboard = (props) => {
   return (
@@ -24,40 +26,59 @@ const ManagerDashboard = (props) => {
             <Route
               exact
               path="/manager/dashboard/home"
-              component={DashboardHome}></Route>
+              component={DashboardHome}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/menus"
-              component={DashboardMenu}></Route>
+              component={DashboardMenu}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/menus/create"
-              component={AddMenu}></Route>
+              component={AddMenu}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/categories"
-              component={DashboardCategories}></Route>
+              component={DashboardCategories}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/categories/create"
-              component={AddCategory}></Route>
+              component={AddCategory}
+            ></Route>
+            <Route
+              exact
+              path="/manager/dashboard/categories/:categoryId/edit"
+              component={EditCategory}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/products"
-              component={DashboardProducts}></Route>
+              component={DashboardProducts}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/products/create"
-              component={AddProduct}></Route>
+              component={AddProduct}
+            ></Route>
+            <Route
+              exact
+              path="/manager/dashboard/products/:productId/edit"
+              component={EditProduct}
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/orders"
-              component={DashboardOrders}></Route>
+              component={DashboardOrders}
+              
+            ></Route>
             <Route
               exact
               path="/manager/dashboard/orders/:orderId"
-              component={OrderId}></Route>
-            
+              component={OrderId}
+            ></Route>
           </div>
         </Switch>
       </div>

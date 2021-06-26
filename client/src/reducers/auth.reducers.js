@@ -60,6 +60,7 @@ export default function (state = initialState, action) {
         ...state,
         ...payload,
         loading: false,
+        err: {},
       };
     }
     default:

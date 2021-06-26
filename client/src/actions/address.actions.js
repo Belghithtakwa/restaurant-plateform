@@ -9,9 +9,7 @@ import {
 } from "./types";
 export const getAdresses = (restaurantId) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://localhost:8000/api/addresses/me/${restaurantId}`
-    );
+    const res = await axios.get(`/api/addresses/me/${restaurantId}`);
     dispatch({
       type: GET_ADDRESSES,
       payload: res.data.addresses,
@@ -26,7 +24,7 @@ export const getAdresses = (restaurantId) => async (dispatch) => {
 export const getAddress = (addressId, restaurantId) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:8000/api/addresses/me/${restaurantId}/${addressId}`
+      `/api/addresses/me/${restaurantId}/${addressId}`
     );
     dispatch({
       type: GET_ADDRESS,
@@ -46,11 +44,7 @@ export const createAddress = (data, restaurantId) => async (dispatch) => {
     },
   };
   try {
-    await axios.post(
-      `http://localhost:8000/api/feedbacks/me/${restaurantId}`,
-      data,
-      config
-    );
+    await axios.post(`/api/feedbacks/me/${restaurantId}`, data, config);
     dispatch({
       type: CREATE_ADDRESS,
     });
@@ -65,7 +59,7 @@ export const createAddress = (data, restaurantId) => async (dispatch) => {
 export const deleteAddress = (addressId, restaurantId) => async (dispatch) => {
   try {
     const res = await axios.delete(
-      `http://localhost:8000/api/feedbacks/me/${restaurantId}/${addressId}`
+      `/api/feedbacks/me/${restaurantId}/${addressId}`
     );
     dispatch({
       type: DELETE_ADDRESS,
@@ -78,28 +72,27 @@ export const deleteAddress = (addressId, restaurantId) => async (dispatch) => {
     });
   }
 };
-export const updateAddress = (data, addressId, restaurantId) => async (
-  dispatch
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "Application/json",
-    },
+export const updateAddress =
+  (data, addressId, restaurantId) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    };
+    try {
+      const res = await axios.delete(
+        `/api/addresses/me/${restaurantId}/${addressId}`,
+        data,
+        config
+      );
+      dispatch({
+        type: UPDATE_ADDRESS,
+        payload: res.data.updatedAddress,
+      });
+    } catch (err) {
+      dispatch({
+        type: ADDRESS_ERROR,
+        payload: err,
+      });
+    }
   };
-  try {
-    const res = await axios.delete(
-      `http://localhost:8000/api/addresses/me/${restaurantId}/${addressId}`,
-      data,
-      config
-    );
-    dispatch({
-      type: UPDATE_ADDRESS,
-      payload: res.data.updatedAddress,
-    });
-  } catch (err) {
-    dispatch({
-      type: ADDRESS_ERROR,
-      payload: err,
-    });
-  }
-};

@@ -2,7 +2,7 @@ const Menu = require("../models/menu.models");
 const Restaurant = require("../models/restaurant.models");
 const getMenus = async (req, res) => {
   try {
-    const menus = await Menu.find();
+    const menus = await Menu.find({restaurant: req.restaurant._id});
     return res.status(200).json({ menus: menus });
   } catch (err) {
     return res.status(500).json(err);
@@ -49,18 +49,18 @@ const updateMenu = async (req, res) => {
     const updatedMenu = await Menu.findByIdAndUpdate(menuId, dataToUpdate, {
       new: true,
     });
-    return res.status(500).json({ updatedMenu: updatedMenu });
+    return res.status(200).json({ updatedMenu: updatedMenu });
   } catch (err) {
     return res.status(500).json(err);
   }
 };
 
 const deleteMenu = async (req, res) => {
-  const menuId = req.params.menuId;
+  const menuId = req.menu._id;
 
   try {
     const deletedMenu = await Menu.findByIdAndDelete(menuId);
-    return res.status(200).json({ deletedMenu: deletedMenu });
+    return res.status(200).json({ menu: deletedMenu });
   } catch (err) {
     return res.status(500).json(err);
   }

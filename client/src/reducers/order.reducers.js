@@ -11,6 +11,7 @@ import {
   GET_MANAGER_ORDERS,
   CONFIRM_ORDER,
   CANCEL_ORDER,
+  GET_CLIENT_ORDERS,
 } from "../actions/types";
 
 const initialState = {
@@ -84,6 +85,12 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GET_MANAGER_ORDERS:
+      return {
+        ...state,
+        orders: payload,
+        loading: false,
+      };
+    case GET_CLIENT_ORDERS:
       return {
         ...state,
         orders: payload,

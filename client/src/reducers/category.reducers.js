@@ -49,6 +49,7 @@ export default function (state = initialState, action) {
     case CREATE_CATEGORY: {
       return {
         ...state,
+        categories: [...state.categories, payload],
         loading: false,
       };
     }

@@ -39,9 +39,9 @@ const Cart = ({ order, getOwnedOrder }) => {
                     return (
                       <div className="flex justify-between items-center">
                         <i className="fas fa-tags"></i>
-                        <div>{el.product.productName}</div>
-                        <div>#{el.quantity}</div>
-                        <div>{el.totalPrice}</div>
+                        <div>{el?.product?.productName}</div>
+                        <div>#{el?.quantity}</div>
+                        <div>{el?.totalPrice}</div>
                       </div>
                     );
                   })}

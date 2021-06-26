@@ -8,11 +8,7 @@ export const sendMessage = (data) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(
-      "http://localhost:8000/api/messages",
-      data,
-      config
-    );
+    const res = await axios.post("/api/messages", data, config);
     dispatch({
       type: SEND_MESSAGE,
       payload: res.data.message,

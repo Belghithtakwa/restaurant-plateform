@@ -1,9 +1,9 @@
-import React , {Fragment} from 'react'
+import React, {Fragment} from 'react'
 
 const Payment = () => {
   return (
-   <Fragment>
-       <div className="leading-loose">
+    <Fragment>
+      <div className="leading-loose">
   <form className="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
     <p className="text-gray-800 font-medium">Customer information</p>
     <div className="">
@@ -40,9 +40,8 @@ const Payment = () => {
     </div>
   </form>
 </div>
-   </Fragment>
+    </Fragment>
   )
 }
 
 export default Payment
-

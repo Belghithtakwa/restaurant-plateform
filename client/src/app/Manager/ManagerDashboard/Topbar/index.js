@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {logoutManager} from "../../../../actions/authManager.action"
+import { logoutManager } from "../../../../actions/authManager.actions";
 import avatar from "../../../../assets/images/avatar.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -69,11 +69,6 @@ const ManagerTopbar = ({ logoutManager, auth }) => {
                       className="p-2 hover:bg-primary cursor-pointer hover:text-white">
                       Account
                     </Link> */}
-                    <Link
-                      to="/manager/dashboard/restaurants"
-                      className="p-2 hover:bg-primary cursor-pointer hover:text-white">
-                      Restaurants
-                    </Link>
                     <div
                       onClick={(e) => {
                         logoutManager();

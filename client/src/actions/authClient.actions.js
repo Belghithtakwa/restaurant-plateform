@@ -19,11 +19,7 @@ export const registerClient = (data) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post(
-      "http://localhost:8000/api/auth/client/register",
-      data,
-      config
-    );
+    const res = await axios.post("/api/auth/client/register", data, config);
     dispatch({
       type: USER_REGISTER_SUCCESS,
     });
@@ -45,11 +41,7 @@ export const loginClient = (data) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(
-      "http://localhost:8000/api/auth/client/login",
-      data,
-      config
-    );
+    const res = await axios.post("/api/auth/client/login", data, config);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: res.data,

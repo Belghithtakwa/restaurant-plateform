@@ -19,10 +19,10 @@ const getProducts = async (req, res) => {
       return res.status(200).json({ products: products });
     } catch (err) {
       return res.status(500).json(err);
-    }
+    } 
   } else {
     try {
-      const products = await Product.find().populate({
+      const products = await Product.find({restaurant: req.restaurant._id}).populate({
         path: "category",
         select: "categoryName",
       });
@@ -61,7 +61,7 @@ const updateProduct = async (req, res) => {
       dataToUpdate,
       { new: true }
     );
-    return res.status(500).json({ updatedProduct: updatedProduct });
+    return res.status(200).json({ updatedProduct: updatedProduct });
   } catch (err) {
     return res.status(500).json(err);
   }

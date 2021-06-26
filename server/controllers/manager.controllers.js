@@ -22,7 +22,7 @@ const getManagerById = async (req, res) => {
   const managerId = req.params.managerId;
   try {
     const manager = await Manager.findById(managerId);
-    return res.status(500).json({ manager: manager });
+    return res.status(200).json({ manager: manager });
   } catch (err) {
     return res.status(500).json(err);
   }
