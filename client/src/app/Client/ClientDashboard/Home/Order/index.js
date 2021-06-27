@@ -21,19 +21,13 @@ const OrdersClient = ({ getClientOrders, order }) => {
                 <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-gray-200">
                   Number
                 </th>
-
-                <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-gray-200">
-                  Description
-                </th>
                 <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-gray-200">
                   Created At
                 </th>
                 <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-gray-200">
                   state
                 </th>
-                <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-gray-200">
-                  Actions
-                </th>
+               
               </tr>
             </thead>
             <tbody>
@@ -53,13 +47,7 @@ const OrdersClient = ({ getClientOrders, order }) => {
                       <td className="py-4 px-6 border-b border-gray-200">
                         {order.state}
                       </td>
-                      {/* <td className="py-4 px-6 border-b border-gray-200">
-                        <Link
-                          to={`/manager/dashboard/orders/${order._id}`}
-                          className="w-10 h-10 focus:outline-none appearance-none font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-primary hover:text-white">
-                          <i className="fas fa-tv"></i>
-                        </Link>
-                      </td> */}
+                    
                     </tr>
                   );
                 })}

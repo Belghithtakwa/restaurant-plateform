@@ -76,15 +76,6 @@ const Sidebar = () => {
               <i className="fas fa-receipt"></i>
             </Link>
           </li>
-
-          <li className="hover:text-primary">
-            <Link
-              to="/manager/dashboard/feedback"
-              className="h-16 px-6 flex justify-center items-center w-full
-					">
-              <i className="fas fa-comments-dollar"></i>
-            </Link>
-          </li>
         </ul>
       </aside>
     </Fragment>
